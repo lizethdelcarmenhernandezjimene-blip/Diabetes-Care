@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>DiabetesCare · Consulta rápida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">DiabetesCare</div>
+        <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="informacion.html">Información</a></li>
+                <li><a href="consulta.html" class="activo">Consulta rápida</a></li>
+                <li><a href="centros.html">Centros de salud</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="consulta-page">
+
+        <div class="container">
+            
+
+            <h1>Consulta rápida de síntomas</h1>
+            <p class="subtitulo">Responde todas las preguntas para obtener una evaluación preliminar.</p>
+
+            <form id="formConsulta" class="form-consulta">
+                <div class="campo">
+                    <label for="nombre">Tu nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+                </div>
+
+                <div class="pregunta">
+                    <p>¿Tienes mucha sed?</p>
+                    <label><input type="radio" name="sed" value="si"> Sí</label>
+                    <label><input type="radio" name="sed" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Orinas con mucha frecuencia?</p>
+                    <label><input type="radio" name="orina" value="si"> Sí</label>
+                    <label><input type="radio" name="orina" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Visión borrosa?</p>
+                    <label><input type="radio" name="vision" value="si"> Sí</label>
+                    <label><input type="radio" name="vision" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Cansancio extremo o fatiga?</p>
+                    <label><input type="radio" name="cansancio" value="si"> Sí</label>
+                    <label><input type="radio" name="cansancio" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Hormigueo o entumecimiento en pies/manos?</p>
+                    <label><input type="radio" name="hormigueo" value="si"> Sí</label>
+                    <label><input type="radio" name="hormigueo" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Heridas que tardan en sanar?</p>
+                    <label><input type="radio" name="heridas" value="si"> Sí</label>
+                    <label><input type="radio" name="heridas" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Pérdida de peso sin razón aparente?</p>
+                    <label><input type="radio" name="peso" value="si"> Sí</label>
+                    <label><input type="radio" name="peso" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Infecciones frecuentes?</p>
+                    <label><input type="radio" name="infecciones" value="si"> Sí</label>
+                    <label><input type="radio" name="infecciones" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Piel muy seca o picazón?</p>
+                    <label><input type="radio" name="piel" value="si"> Sí</label>
+                    <label><input type="radio" name="piel" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Cambios de humor o irritabilidad?</p>
+                    <label><input type="radio" name="humor" value="si"> Sí</label>
+                    <label><input type="radio" name="humor" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Boca seca?</p>
+                    <label><input type="radio" name="boca_seca" value="si"> Sí</label>
+                    <label><input type="radio" name="boca_seca" value="no" checked> No</label>
+                </div>
+                <div class="pregunta">
+                    <p>¿Dolor de cabeza frecuente?</p>
+                    <label><input type="radio" name="cabeza" value="si"> Sí</label>
+                    <label><input type="radio" name="cabeza" value="no" checked> No</label>
+                </div>
+                <!-- === SIGNOS VITALES (OPCIONALES) === -->
+<div class="seccion-vitales">
+    <h3 style="color: #2a9d8f; margin-bottom: 1rem; font-size: 1.2rem;">🩺 Signos vitales (opcional)</h3>
+    <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">
+        Si tienes tus mediciones a la mano, ingrésalas. No es obligatorio.
+    </p>
+    <div class="grid-vitales">
+        <div class="campo">
+            <label for="presion_sis">Presión sistólica (mmHg)</label>
+            <input type="number" id="presion_sis" name="presion_sis" placeholder="Ej. 120" min="50" max="250">
+        </div>
+        <div class="campo">
+            <label for="presion_dias">Presión diastólica (mmHg)</label>
+            <input type="number" id="presion_dias" name="presion_dias" placeholder="Ej. 80" min="30" max="150">
+        </div>
+        <div class="campo">
+            <label for="glucosa">Glucosa (mg/dL)</label>
+            <input type="number" id="glucosa" name="glucosa" placeholder="Ej. 110" min="20" max="600">
+        </div>
+    </div>
+</div>
+
+                <button type="button" id="btnEvaluar" class="btn-evaluar">Evaluar síntomas</button>
+            </form>
+
+            <div id="resultado" class="resultado" style="display: none;"></div>
+
+            <!-- HISTORIAL DE CONSULTAS -->
+            <div class="historial-container">
+                <h3>📋 Tu historial reciente</h3>
+                <div id="historial-lista" class="historial-lista">
+                    <p>Cargando historial...</p>
+                </div>
+                <button id="borrar-historial" class="btn-borrar">Borrar historial</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 DiabetesCare. Todos los derechos reservados.</p>
+            <p>Proyecto sitio web</p>
+            <p>Instituto Tecnologico Superior de las Chopas</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

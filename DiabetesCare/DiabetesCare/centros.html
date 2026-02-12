@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>DiabetesCare · Centros de salud</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Tu CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #mapid {
+            height: 400px;
+            width: 100%;
+            border-radius: 16px;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 768px) {
+            #mapid {
+                height: 500px;
+            }
+        }
+        .lista-centros {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        .lista-centros li {
+            background: rgba(42,157,143,0.05);
+            margin-bottom: 0.8rem;
+            padding: 1rem;
+            border-left: 4px solid #2a9d8f;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+        .lista-centros strong {
+            color: #2a9d8f;
+        }
+        body.dark-theme .lista-centros li {
+            background: rgba(233,196,106,0.1);
+            border-left-color: #e9c46a;
+        }
+        body.dark-theme .lista-centros strong {
+            color: #e9c46a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">DiabetesCare</div>
+        <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="informacion.html">Información</a></li>
+                <li><a href="consulta.html">Consulta rápida</a></li>
+                <li><a href="centros.html" class="activo">Centros de salud</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="pagina-secundaria">
+        <div class="container">
+            
+            <h1>Centros de salud cercanos</h1>
+            <p class="subtitulo">Encuentra hospitales y clínicas especializadas en diabetes.</p>
+            
+            <div id="mapid"></div>
+
+            <h3 style="margin-top: 2rem;">📍 Centros recomendados</h3>
+            <ul class="lista-centros">
+                <li><strong>Hospital General de México</strong><br>Dr. Balmis 148, Doctores, CDMX</li>
+                <li><strong>Clínica de Diabetes UNAM</strong><br>Av. Universidad 3000, Coyoacán, CDMX</li>
+                <li><strong>Centro de Salud T-III</strong><br>Calle 5 de Febrero, Centro, CDMX</li>
+            </ul>
+            <p style="font-size: 0.85rem; color: #666;">* Puntos de referencia. Verifica horarios.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 DiabetesCare. Todos los derechos reservados.</p>
+            <p>Proyecto sitio web</p>
+            <p>Instituto Tecnologico Superior de las Chopas</p>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var map = L.map('mapid').setView([19.4326, -99.1332], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+            var centros = [
+                { nombre: "Hospital General de México", lat: 19.4266, lng: -99.1527 },
+                { nombre: "Clínica de Diabetes UNAM", lat: 19.3326, lng: -99.1867 },
+                { nombre: "Centro de Salud T-III", lat: 19.4333, lng: -99.1333 }
+            ];
+            centros.forEach(function(c) {
+                L.marker([c.lat, c.lng]).addTo(map)
+                    .bindPopup(`<b>${c.nombre}</b><br>Consultar horarios.`);
+            });
+            setTimeout(function() { map.invalidateSize(); }, 200);
+        });
+    </script>
+</body>
+</html>

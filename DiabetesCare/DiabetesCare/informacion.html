@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>DiabetesCare · Información completa sobre diabetes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === ESTILOS EXCLUSIVOS PARA LA PÁGINA DE INFORMACIÓN === */
+        .pagina-informacion {
+            background: var(--bg-color);
+            padding: 2rem 0;
+        }
+
+        .informacion-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .informacion-header h1 {
+            color: var(--verde);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .informacion-header p {
+            color: var(--subtitulo);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .seccion-tipos {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .tipo-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(42,157,143,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tipo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(42,157,143,0.15);
+        }
+
+        .tipo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .tipo-contenido h2 {
+            color: var(--verde);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tipo-contenido h3 {
+            color: var(--azul-oscuro);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .tipo-contenido p {
+            color: var(--text-color);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .tipo-contenido ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tipo-contenido li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.8rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .tipo-contenido li::before {
+            content: "•";
+            color: var(--verde);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -0.2rem;
+        }
+
+        .tipo-imagen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tipo-imagen img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tabla-comparativa {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            overflow-x: auto;
+        }
+
+        .tabla-comparativa h3 {
+            color: var(--verde);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+
+        th {
+            background: var(--verde);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(42,157,143,0.1);
+            color: var(--text-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .complicaciones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .complicacion-item {
+            background: rgba(42,157,143,0.03);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--naranja);
+        }
+
+        .complicacion-item h4 {
+            color: var(--azul-oscuro);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .fuentes {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: rgba(42,157,143,0.03);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: var(--subtitulo);
+        }
+
+        .fuentes a {
+            color: var(--verde);
+            text-decoration: none;
+        }
+
+        .fuentes a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .tipo-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .tipo-imagen {
+                order: -1;
+            }
+            .tipo-imagen img {
+                max-width: 300px;
+            }
+            .informacion-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Modo oscuro ajustes */
+        body.dark-theme .tipo-card {
+            background: var(--card-bg);
+            border-color: rgba(233,196,106,0.1);
+        }
+        body.dark-theme .complicacion-item {
+            background: rgba(233,196,106,0.05);
+        }
+        body.dark-theme th {
+            background: #0a4b4a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">DiabetesCare</div>
+        <button id="darkModeToggle" class="dark-mode-btn">🌙</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="informacion.html" class="activo">Información</a></li>
+                <li><a href="consulta.html">Consulta rápida</a></li>
+                <li><a href="centros.html">Centros de salud</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="pagina-informacion">
+        <div class="container">
+            <!-- Botón volver al inicio -->
+            
+            <!-- HEADER DE INFORMACIÓN -->
+            <div class="informacion-header">
+                <h1>📚 Todo sobre la diabetes</h1>
+                <p>Información completa, clara y basada en evidencia médica. Aprende a conocer y manejar esta condición.</p>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: DEFINICIÓN GENERAL               -->
+            <!-- ========================================= -->
+            <div class="tipo-card">
+                <div class="tipo-grid">
+                    <div class="tipo-contenido">
+                        <h2>🔬 ¿Qué es la diabetes?</h2>
+                        <p style="font-size:1.1rem;">La diabetes es una condición médica en la que el cuerpo no produce suficiente insulina o no puede utilizarla correctamente [<a href="#ref2" style="color:var(--verde);">2</a>].</p>
+                        <p>La <strong>insulina</strong> es una hormona producida por el páncreas que permite que el azúcar (glucosa) de la sangre entre a las células para ser usada como energía. Cuando este proceso falla, la glucosa se acumula en la sangre (hiperglucemia) y puede dañar vasos sanguíneos, nervios, ojos y riñones [<a href="#ref2" style="color:var(--verde);">2</a>].</p>
+                        <div style="background: rgba(42,157,143,0.05); padding:1.2rem; border-radius:12px; margin-top:1rem;">
+                            <strong>📊 Dato clave:</strong> Más de 21 millones de nacimientos anuales son afectados por diabetes materna en el mundo [<a href="#ref3" style="color:var(--verde);">3</a>].
+                        </div>
+                    </div>
+                    <div class="tipo-imagen">
+                        <img src="img/informacion/glucometro.jpg" alt="Medición de glucosa en sangre" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: TIPOS DE DIABETES               -->
+            <!-- ========================================= -->
+            <h2 style="color:var(--verde); margin:2rem 0 1rem; font-size:2rem;">📋 Tipos de diabetes</h2>
+            
+            <div class="seccion-tipos">
+                <!-- DIABETES TIPO 1 -->
+                <div class="tipo-card">
+                    <div class="tipo-grid">
+                        <div class="tipo-contenido">
+                            <h2>🩸 Diabetes tipo 1</h2>
+                            <p><strong>Qué es:</strong> El cuerpo no produce insulina. Es una enfermedad autoinmune donde el sistema inmunológico ataca las células beta del páncreas [<a href="#ref2" style="color:var(--verde);">2</a>].</p>
+                            <ul>
+                                <li>Generalmente se diagnostica en niños y jóvenes.</li>
+                                <li><strong>Tratamiento:</strong> Requiere insulina todos los días (inyecciones o bomba).</li>
+                                <li>No se puede prevenir con hábitos de vida.</li>
+                                <li>Riesgo 2-5 veces mayor de complicaciones mayores en embarazo [<a href="#ref3" style="color:var(--verde);">3</a>].</li>
+                                <li>Mayor riesgo de cetoacidosis diabética (especialmente en embarazo) [<a href="#ref7" style="color:var(--verde);">7</a>].</li>
+                            </ul>
+                        </div>
+                        <div class="tipo-imagen">
+                            <img src="img/informacion/diabetes-tipo1.jpg" alt="Ilustración páncreas y diabetes tipo 1" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIABETES TIPO 2 -->
+                <div class="tipo-card">
+                    <div class="tipo-grid">
+                        <div class="tipo-contenido">
+                            <h2>⚖️ Diabetes tipo 2</h2>
+                            <p><strong>Qué es:</strong> El cuerpo no produce suficiente insulina o no puede usarla eficazmente (resistencia a la insulina) [<a href="#ref2" style="color:var(--verde);">2</a>].</p>
+                            <ul>
+                                <li><strong>Principal causa:</strong> Estilo de vida, obesidad, antecedentes familiares.</li>
+                                <li>Se puede prevenir o retrasar con dieta saludable y ejercicio.</li>
+                                <li>Tratamiento: Cambios en estilo de vida, metformina, insulina en etapas avanzadas [<a href="#ref4" style="color:var(--verde);">4</a>].</li>
+                                <li>La metformina puede usarse con cautela en embarazo [<a href="#ref7" style="color:var(--verde);">7</a>].</li>
+                                <li>Asociada a obesidad e hipertensión arterial [<a href="#ref7" style="color:var(--verde);">7</a>].</li>
+                            </ul>
+                            <div style="background: rgba(42,157,143,0.05); padding:1rem; border-radius:8px; margin-top:1rem;">
+                                <strong>💡 Prediabetes:</strong> Glucosa 100-125 mg/dL. Es reversible con cambios de hábitos [<a href="#ref2" style="color:var(--verde);">2</a>].
+                            </div>
+                        </div>
+                        <div class="tipo-imagen">
+                            <img src="img/informacion/diabetes-tipo2.jpg" alt="Resistencia a la insulina" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIABETES GESTACIONAL -->
+                <div class="tipo-card">
+                    <div class="tipo-grid">
+                        <div class="tipo-contenido">
+                            <h2>🤰 Diabetes gestacional</h2>
+                            <p><strong>Qué es:</strong> Tipo de diabetes que ocurre durante el embarazo (segundo o tercer trimestre) y generalmente desaparece después del parto [<a href="#ref1" style="color:var(--verde);">1</a>][<a href="#ref8" style="color:var(--verde);">8</a>].</p>
+                            <p><strong>Causa:</strong> Hormonas producidas por la placenta (estrógeno, progesterona, cortisol, lactógeno placentario) generan resistencia a la insulina [<a href="#ref1" style="color:var(--verde);">1</a>].</p>
+                            <ul>
+                                <li>Afecta 2-10% de los embarazos [<a href="#ref8" style="color:var(--verde);">8</a>].</li>
+                                <li><strong>No suele causar síntomas</strong>; se detecta por pruebas entre semana 24-28 [<a href="#ref4" style="color:var(--verde);">4</a>].</li>
+                                <li>Mayor riesgo futuro de diabetes tipo 2 tanto para la madre como para el hijo [<a href="#ref8" style="color:var(--verde);">8</a>].</li>
+                                <li>30% más riesgo de cesárea; 50% más riesgo de hipertensión gestacional [<a href="#ref3" style="color:var(--verde);">3</a>].</li>
+                                <li>Hijos: 70% más riesgo de prematurez, 30% más riesgo de macrosomía [<a href="#ref3" style="color:var(--verde);">3</a>].</li>
+                            </ul>
+                        </div>
+                        <div class="tipo-imagen">
+                            <img src="img/informacion/diabetes-gestacional.jpg" alt="Diabetes gestacional y placenta" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: FISIOPATOLOGÍA (hipótesis)      -->
+            <!-- ========================================= -->
+            <div class="tipo-card">
+                <div class="tipo-grid">
+                    <div class="tipo-contenido">
+                        <h2>🧬 ¿Qué pasa en el cuerpo?</h2>
+                        <h3>Hipótesis de Pedersen (Sobrenutrición fetal)</h3>
+                        <p>La glucosa materna pasa al feto a través de la placenta. Si la madre tiene hiperglucemia, el feto también la tiene y su páncreas produce más insulina. Esto convierte el exceso de glucosa en grasa, causando <strong>macrosomía</strong> (bebé grande) [<a href="#ref3" style="color:var(--verde);">3</a>][<a href="#ref6" style="color:var(--verde);">6</a>].</p>
+                        <h3>Resistencia a la insulina en el embarazo</h3>
+                        <p>Es una adaptación fisiológica para preservar carbohidratos para el feto. La producción de insulina aumenta 2-3 veces. Si la respuesta es inadecuada, se desarrolla diabetes gestacional [<a href="#ref3" style="color:var(--verde);">3</a>].</p>
+                    </div>
+                    <div class="tipo-imagen">
+                        <img src="img/informacion/placenta-insulina.jpg" alt="Placenta y transferencia de glucosa" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: FACTORES DE RIESGO              -->
+            <!-- ========================================= -->
+            <div class="tipo-card">
+                <h2 style="color:var(--verde); margin-bottom:1.5rem;">⚠️ Factores de riesgo</h2>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:1.5rem;">
+                    <div>
+                        <h3 style="color:var(--azul-oscuro);">Diabetes gestacional</h3>
+                        <ul>
+                            <li>Sobrepeso u obesidad [<a href="#ref1" style="color:var(--verde);">1</a>]</li>
+                            <li>Antecedentes familiares de diabetes</li>
+                            <li>Edad mayor a 40 años</li>
+                            <li>Etnia: afroamericana, hispana, asiática, islas del Pacífico [<a href="#ref8" style="color:var(--verde);">8</a>]</li>
+                            <li>Diabetes gestacional en embarazo anterior</li>
+                            <li>Prediabetes o SOP [<a href="#ref1" style="color:var(--verde);">1</a>]</li>
+                            <li>Presión arterial alta</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color:var(--azul-oscuro);">Diabetes tipo 2</h3>
+                        <ul>
+                            <li>Sobrepeso (IMC ≥25)</li>
+                            <li>Inactividad física</li>
+                            <li>Antecedentes familiares</li>
+                            <li>Edad ≥45 años</li>
+                            <li>Antecedentes de diabetes gestacional</li>
+                            <li>Prediabetes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: COMPLICACIONES                  -->
+            <!-- ========================================= -->
+            <div class="tipo-card">
+                <h2 style="color:var(--verde); margin-bottom:1.5rem;">🆘 Complicaciones (si no se controla)</h2>
+                
+                <h3 style="color:var(--azul-oscuro);">🤰 En la madre</h3>
+                <div class="complicaciones-grid">
+                    <div class="complicacion-item">
+                        <h4>Preeclampsia</h4>
+                        <p>Presión arterial peligrosamente alta. 4 veces más riesgo [<a href="#ref7" style="color:var(--verde);">7</a>].</p>
+                    </div>
+                    <div class="complicacion-item">
+                        <h4>Parto por cesárea</h4>
+                        <p>30% más riesgo [<a href="#ref3" style="color:var(--verde);">3</a>].</p>
+                    </div>
+                    <div class="complicacion-item">
+                        <h4>Polihidramnios</h4>
+                        <p>Exceso de líquido amniótico.</p>
+                    </div>
+                    <div class="complicacion-item">
+                        <h4>Aborto espontáneo</h4>
+                        <p>Mayor riesgo si HbA1c >8% [<a href="#ref2" style="color:var(--verde);">2</a>].</p>
+                    </div>
+                    <div class="complicacion-item">
+                        <h4>Retinopatía/nefropatía</h4>
+                        <p>Puede empeorar con embarazo. Requiere monitoreo [<a href="#ref7" style="color:var(--verde);">7</a>].</p>
+                    </div>
+                </div>
+
+                <h3 style="color:var(--azul-oscuro); margin-top:2rem;">👶 En el bebé</h3>
+                <div class="complicaciones-grid">
+                    <div class="complicacion-item">
+                        <h4>Macrosomía</h4>
+                        <p>Peso >4000g. Riesgo de lesiones, distocia de hombros [<a href="#ref1" style="color:var(--verde);">1</a>].</p>
+                    </div>
+                    <div class="complicacion-item">
+                        <h4>Hipoglucemia neonatal</h4>
+                        <p>Bajo nivel de azúcar al nacer [<a href="#ref5" style="color:var(--verde);">5</a>].</p>
+                    </div>
+                    <div class="complicacion-item">
+                        <h4>Defectos congénitos</h4>
+                        <p>Cardíacos (tetralogía de Fallot, transposición), defectos del tubo neural, regresión caudal [<a href="#ref3" style="color:var(--verde);">3</a>][<a href="#ref7" style="color:var(--verde);">7</a>].</p>
+                    </div>
+                    <div class="complicacion-item">
+                        <h4>Problemas metabólicos</h4>
+                        <p>Hipocalcemia, hipomagnesemia, policitemia, hiperbilirrubinemia [<a href="#ref3" style="color:var(--verde);">3</a>].</p>
+                    </div>
+                    <div class="complicacion-item">
+                        <h4>Riesgo futuro</h4>
+                        <p>Mayor probabilidad de obesidad y diabetes tipo 2 en la adultez [<a href="#ref8" style="color:var(--verde);">8</a>].</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: PREVENCIÓN Y MANEJO             -->
+            <!-- ========================================= -->
+            <div class="tipo-card">
+                <div class="tipo-grid">
+                    <div class="tipo-contenido">
+                        <h2>💪 Prevención y tratamiento</h2>
+                        <h3>Antes del embarazo (planificación)</h3>
+                        <ul>
+                            <li>Control glucémico estricto (HbA1c <6.5%) [<a href="#ref7" style="color:var(--verde);">7</a>].</li>
+                            <li>Bajar de peso si hay sobrepeso.</li>
+                            <li>Ácido fólico prenatal [<a href="#ref2" style="color:var(--verde);">2</a>].</li>
+                            <li>Evaluar retinopatía, nefropatía y función renal.</li>
+                        </ul>
+                        <h3>Durante el embarazo</h3>
+                        <ul>
+                            <li><strong>Dieta:</strong> Plan personalizado. Verduras, proteínas magras, granos integrales. Evitar bebidas azucaradas [<a href="#ref1" style="color:var(--verde);">1</a>].</li>
+                            <li><strong>Ejercicio:</strong> 30 min de actividad moderada la mayoría de los días [<a href="#ref8" style="color:var(--verde);">8</a>].</li>
+                            <li><strong>Monitoreo:</strong> Glucosa en ayunas <95 mg/dL; 1h posprandial <140 mg/dL; 2h <120 mg/dL [<a href="#ref2" style="color:var(--verde);">2</a>][<a href="#ref4" style="color:var(--verde);">4</a>].</li>
+                            <li><strong>Insulina:</strong> Es el tratamiento de elección. No atraviesa la placenta [<a href="#ref4" style="color:var(--verde);">4</a>].</li>
+                            <li><strong>Metformina:</strong> Alternativa oral en diabetes gestacional y tipo 2 [<a href="#ref7" style="color:var(--verde);">7</a>].</li>
+                        </ul>
+                    </div>
+                    <div class="tipo-imagen">
+                        <img src="img/informacion/ejercicio-embarazo.jpg" alt="Ejercicio en embarazo" style="margin-top:1rem;" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: TABLA COMPARATIVA               -->
+            <!-- ========================================= -->
+            <div class="tabla-comparativa">
+                <h3>📊 Comparación rápida: tipos de diabetes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Diabetes tipo 1</th>
+                            <th>Diabetes tipo 2</th>
+                            <th>Diabetes gestacional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Causa principal</strong></td>
+                            <td>Autoinmune (destrucción células beta)</td>
+                            <td>Resistencia a insulina + déficit relativo</td>
+                            <td>Hormonas placentarias</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Edad típica</strong></td>
+                            <td>Niños, adolescentes, adultos jóvenes</td>
+                            <td>Adultos >40 años (cada vez más jóvenes)</td>
+                            <td>Embarazo (24-28 semanas)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tratamiento</strong></td>
+                            <td>Insulina SIEMPRE</td>
+                            <td>Dieta, ejercicio, metformina, insulina</td>
+                            <td>Dieta, ejercicio, insulina si es necesario</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prevención</strong></td>
+                            <td>No se puede prevenir</td>
+                            <td>Sí, con hábitos saludables</td>
+                            <td>Control de peso antes del embarazo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Después del parto</strong></td>
+                            <td>Persiste</td>
+                            <td>Persiste</td>
+                            <td>Generalmente desaparece (pero riesgo futuro T2D)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: PREGUNTAS FRECUENTES            -->
+            <!-- ========================================= -->
+            <div class="tipo-card">
+                <h2 style="color:var(--verde); margin-bottom:1.5rem;">❓ Preguntas frecuentes</h2>
+                <div style="display:flex; flex-direction:column; gap:1.5rem;">
+                    <div>
+                        <h3 style="color:var(--azul-oscuro);">¿La diabetes gestacional causa defectos de nacimiento?</h3>
+                        <p>No. La diabetes gestacional aparece después de la organogénesis (semana 20-24). Sin embargo, si no se controla, puede causar macrosomía, hipoglucemia neonatal y otros problemas al nacer [<a href="#ref1" style="color:var(--verde);">1</a>][<a href="#ref5" style="color:var(--verde);">5</a>].</p>
+                    </div>
+                    <div>
+                        <h3 style="color:var(--azul-oscuro);">¿Cuándo debo hacerme la prueba?</h3>
+                        <p>Todas las embarazadas deben hacerse la prueba de detección entre las semanas 24 y 28. Si tienes factores de riesgo, tu médico puede indicarla antes [<a href="#ref4" style="color:var(--verde);">4</a>].</p>
+                    </div>
+                    <div>
+                        <h3 style="color:var(--azul-oscuro);">¿La insulina es peligrosa para el bebé?</h3>
+                        <p>No. La insulina no atraviesa la placenta, por lo que es segura durante el embarazo. Es el tratamiento de elección [<a href="#ref4" style="color:var(--verde);">4</a>].</p>
+                    </div>
+                    <div>
+                        <h3 style="color:var(--azul-oscuro);">¿Puedo tomar medicamentos orales?</h3>
+                        <p>La metformina se usa con cautela en diabetes gestacional y tipo 2. La gliburida ya no se recomienda por mayores riesgos neonatales [<a href="#ref7" style="color:var(--verde);">7</a>].</p>
+                    </div>
+                    <div>
+                        <h3 style="color:var(--azul-oscuro);">¿Después del parto la diabetes gestacional desaparece?</h3>
+                        <p>Sí, en la mayoría de los casos. Sin embargo, debes hacerte una prueba de diabetes 4 a 12 semanas después del parto y luego cada 1 a 3 años, ya que el riesgo de desarrollar diabetes tipo 2 es mayor [<a href="#ref1" style="color:var(--verde);">1</a>][<a href="#ref8" style="color:var(--verde);">8</a>].</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- SECCIÓN: FUENTES (REFERENCIAS)           -->
+            <!-- ========================================= -->
+            <div class="fuentes" id="ref1">
+                <h3 style="color:var(--verde); margin-bottom:0.5rem;">📖 Fuentes de información</h3>
+                <p>Toda la información presentada está basada en evidencia médica de:</p>
+                <ol style="margin-left:1.5rem; margin-top:0.5rem;">
+                    <li id="ref1">Brigham and Women's Hospital / CoxHealth. <em>Diabetes gestacional</em>. The StayWell Company, 2025.</li>
+                    <li id="ref2">Mother To Baby | Fact Sheets. <em>Diabetes tipo 1 y tipo 2</em>. Organization of Teratology Information Specialists (OTIS); NIH, 2023.</li>
+                    <li id="ref3">Egan AM, Dow ML, Vella A. <em>Diabetes, función renal y prevención durante el embarazo</em>. Mayo Clin Proc, 2020. (IntraMed).</li>
+                    <li id="ref4">Friel LA, Goje O. <em>Diabetes mellitus na gestação</em>. Manuales MSD, 2025.</li>
+                    <li id="ref7">Revista Galenus. <em>Diabetes y embarazo: Revisión sobre riesgos y oportunidades</em>, 2018.</li>
+                    <li id="ref8">UAB Medicine. <em>Lo que las mujeres deben saber sobre la diabetes gestacional</em>, 2023.</li>
+                </ol>
+                <p style="margin-top:0.8rem; font-style:italic;">Esta información no sustituye la consulta con un profesional de la salud. Siempre acude a tu médico o endocrinólogo.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 DiabetesCare. Todos los derechos reservados.</p>
+            <p>Proyecto sitio web</p>
+            <p>Instituto Tecnologico Superior de las Chopas</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
